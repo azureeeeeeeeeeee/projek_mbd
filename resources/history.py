@@ -9,18 +9,34 @@ class History(Resource):
         if history_type == 'kendaraan':
             plat_nomor = request.json['plat_nomor']
             cursor.execute('CALL get_sewa_history_kendaraan(%s)', (plat_nomor,))
-            row = cursor.fetchall()
+            rows = cursor.fetchall()
 
-            cursor.execute('SELECT get_total_revenue_by_kendaraan(%s)', (plat_nomor,))
+            columns = [column[0] for column in cursor.description]
+            print(columns)
+            history = [dict(zip(columns, row)) for row in rows]
+
+            cursor.execute('CALL get_total_revenue_procedure(%s)', (plat_nomor,))
             total_revenue = cursor.fetchone()[0]
 
             cursor.close()
 
-            return jsonify({"message": f"Berhasil fetch history kendaraan ({plat_nomor})", "history": row, "total_revenue": total_revenue})
+            return jsonify({"message": f"Berhasil fetch history kendaraan ({plat_nomor})", "history": history, "total_revenue": total_revenue})
         
         elif history_type == 'user':
-            data = request.json
-            return jsonify({"message": "Retrieved user history"})
+            user = service.decode_jwt_token()
+            cursor.execute('CALL get_sewa_history_user(%s)', (user['id'],))
+            rows = cursor.fetchall()
+
+            columns = [column[0] for column in cursor.description]
+            print(columns)
+            history = [dict(zip(columns, row)) for row in rows]
+
+            cursor.execute('CALL get_total_revenue_user_procedure(%s)', (user['id'],))
+            total_revenue = cursor.fetchone()[0]
+
+            cursor.close()
+
+            return jsonify({"message": f"Berhasil fetch history user (id: {user['id']})", "history": history, "total_revenue": total_revenue})
         
         else:
             return jsonify({"message": "Invalid parameter"})

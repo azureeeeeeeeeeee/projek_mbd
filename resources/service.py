@@ -2,7 +2,8 @@ import jwt
 from flask import request, jsonify
 
 SECRET_KEY = 'rio_sangat_hebat'
-# JWT Decode Utility
+
+
 def decode_jwt_token():
     token = request.json.get('token')
     if not token:

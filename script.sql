@@ -31,7 +31,7 @@ CREATE TABLE kendaraan (
 CREATE TABLE metode_pembayaran (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nama VARCHAR(20) NOT NULL
-)
+);
 
 -- SEWA TABLE
 CREATE TABLE sewa (
@@ -151,6 +151,7 @@ END //
 
 
 -- GET TOTAL REVENUE (USER)
+DROP FUNCTION IF EXISTS get_total_revenue_by_user //
 CREATE FUNCTION get_total_revenue_by_user(
     id_pelanggan_input INT
 )
@@ -175,6 +176,7 @@ DELIMITER ;
 DELIMITER //
 
 -- Fetch user from db
+DROP PROCEDURE IF EXISTS get_user //
 CREATE PROCEDURE get_user(IN in_email VARCHAR(50))
 BEGIN
 	START TRANSACTION;
@@ -185,6 +187,7 @@ BEGIN
 END //
 
 -- Create new user
+DROP PROCEDURE IF EXISTS create_user //
 CREATE PROCEDURE create_user(
     IN in_email VARCHAR(50),
     IN in_fullname VARCHAR(100),
