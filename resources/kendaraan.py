@@ -24,7 +24,7 @@ class Kendaraan(Resource):
             user = service.decode_jwt_token()
 
             if not user['role']:
-                return jsonify({ "message":"Kamu tidak memiliki akses" })
+                raise Exception("Kamu tidak memiliki akses")
 
             # Execute query
             cursor.execute("CALL tambah_kendaraan(%s, %s, %s)", (data['plat_nomor'], data['harga_per_hari'], data['tipe']))
@@ -38,6 +38,11 @@ class Kendaraan(Resource):
     def put(self):
         data = request.json
         try:
+            user = service.decode_jwt_token()
+
+            if not user['role']:
+                raise Exception("Kamu tidak memiliki akses")
+            
             cursor = mysql.connection.cursor()
             cursor.execute("CALL update_kendaraan(%s, %s)", (data['plat_nomor'], data['harga_baru']))
             cursor.close()
@@ -51,10 +56,8 @@ class Kendaraan(Resource):
         try:
             user = service.decode_jwt_token()
 
-            print(user)
-
             if not user['role']:
-                return jsonify({ "message":"Kamu tidak memiliki akses" })
+                raise Exception("Kamu tidak memiliki akses")
             
             data = request.json
             cursor = mysql.connection.cursor()
