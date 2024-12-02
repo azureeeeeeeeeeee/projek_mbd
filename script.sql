@@ -150,6 +150,7 @@ BEGIN
 END //
 
 
+
 -- GET TOTAL REVENUE (USER)
 DROP FUNCTION IF EXISTS get_total_revenue_by_user //
 CREATE FUNCTION get_total_revenue_by_user(
@@ -185,6 +186,31 @@ BEGIN
     WHERE username = in_email;
     COMMIT;
 END //
+
+
+DROP PROCEDURE IF EXISTS hapus_user //
+CREATE PROCEDURE hapus_user(
+    IN email_input VARCHAR(50)
+)
+BEGIN
+	START TRANSACTION;
+    	DELETE FROM users 
+    	WHERE email = email_input;
+    COMMIT;
+END//
+
+
+DROP PROCEDURE IF EXISTS hapus_tipe_kendaraan //
+CREATE PROCEDURE hapus_tipe_kendaraan(
+    IN tipe_input VARCHAR(50)
+)
+BEGIN
+
+	START TRANSACTION;
+    	DELETE FROM tipe_kendaraan 
+    	WHERE tipe = tipe_input;
+    COMMIT;
+END//
 
 -- Create new user
 DROP PROCEDURE IF EXISTS create_user //

@@ -20,10 +20,11 @@ app.config['MYSQL_DB'] = 'flaskdb'
 
 mysql.init_app(app)
 
-api.add_resource(User, '/users/')
+api.add_resource(User, '/users/', '/users/<string:user_type>')
 api.add_resource(Login, '/auth/login/')
 api.add_resource(Kendaraan, '/kendaraan/')
-api.add_resource(Sewa, '/sewa/')
+api.add_resource(TipeKendaraan, '/kendaraan/tipe/')
+api.add_resource(Sewa, '/sewa/', '/sewa/<int:id>/')
 api.add_resource(Kembali, '/kembali/')
 api.add_resource(History, '/history/<string:history_type>/')
 

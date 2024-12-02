@@ -1,6 +1,6 @@
 from flask_restful import Resource
 from db import mysql
-from flask import jsonify, request
+from flask import jsonify, request, make_response
 from . import service
 
 class Kembali(Resource):
@@ -8,15 +8,21 @@ class Kembali(Resource):
         # URUTAN : PLAT, TANGGAL KEMBALI, RUSAK, METODE_PEMBAYARAN
         data = request.json
 
-        cursor = mysql.connection.cursor()
+        try:
 
-        user = service.decode_jwt_token()
+            cursor = mysql.connection.cursor()
 
-        print(user)
+            user = service.decode_jwt_token()
 
-        # Executing procedure
-        cursor.execute("CALL kembalikan_kendaraan(%s, %s, %s, %s)", (data['plat_nomor'], data['tanggal_kembali'], data['kondisi'], data['metode_pembayaran']))
-        row = cursor.fetchone()
-        cursor.close()
+            if not user['role']:
+                return make_response({'message': 'kamu tidak memiliki akses'}, 403)
 
-        return jsonify({'message': f'Berhasil mengembalikan kendaraan {data['plat_nomor']}', 'data': row})
+
+            # Executing procedure
+            cursor.execute("CALL kembalikan_kendaraan(%s, %s, %s, %s)", (data['plat_nomor'], data['tanggal_kembali'], data['rusak'], data['metode_pembayaran']))
+            row = cursor.fetchone()
+            cursor.close()
+
+            return jsonify({'message': f'Berhasil mengembalikan kendaraan {data['plat_nomor']}', 'total': row[0]})
+        except Exception as e:
+            return make_response(jsonify({'message': 'error occured', 'error': str(e)}), 500)
