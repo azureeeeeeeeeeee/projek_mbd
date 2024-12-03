@@ -50,6 +50,11 @@ class History(Resource):
 
                 else:
                     email = request.json.get('email')
+
+                    
+                    if not email:
+                        raise Exception('Sebagai admin, email wajib disertakan dalam request body')
+
                     cursor.execute('CALL get_sewa_history_user_by_email(%s)', (email, ))
                     rows = cursor.fetchall()
 

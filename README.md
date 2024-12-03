@@ -2,6 +2,12 @@
 
 REST API berbasis Flask untuk manajemen sewa kendaraan.
 
+```
+Nama : ***Rionando Soeksin Putra***
+NIM : ***11221063***
+Kelas : ***Manajemen Basis Data A***
+```
+
 #### History
 
 History User, { email: email (optional) }
@@ -22,6 +28,12 @@ Login, { name: email, password: string }
 
 ```
 POST /auth/login/
+```
+
+Logout,
+
+```
+POST /auth/logout/
 ```
 
 Registrasi User, { fullname: string, email: email, password: string }

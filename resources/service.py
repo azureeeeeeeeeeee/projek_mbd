@@ -7,6 +7,8 @@ SECRET_KEY = 'rio_sangat_hebat'
 
 def decode_jwt_token():
     token = request.cookies.get('TOKEN')
+    print(token)
+    print(request.cookies)
     if not token:
         return None
     try:

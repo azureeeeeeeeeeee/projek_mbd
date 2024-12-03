@@ -2,7 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from db import mysql
 from resources.user import User
-from resources.auth import Login
+from resources.auth import Login, Logout
 from resources.kendaraan import Kendaraan
 from resources.tipe_kendaraan import TipeKendaraan
 from resources.sewa import Sewa
@@ -22,6 +22,7 @@ mysql.init_app(app)
 
 api.add_resource(User, '/users/', '/users/<string:user_type>')
 api.add_resource(Login, '/auth/login/')
+api.add_resource(Logout, '/auth/logout/')
 api.add_resource(Kendaraan, '/kendaraan/')
 api.add_resource(TipeKendaraan, '/kendaraan/tipe/')
 api.add_resource(Sewa, '/sewa/', '/sewa/<int:id>/')

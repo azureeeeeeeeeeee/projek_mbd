@@ -28,6 +28,11 @@ class User(Resource):
 
         if user_type == 'user':
             try:
+                user = service.decode_jwt_token()
+
+                if user:
+                    raise Exception('Logout dulu untuk bisa melakukan register user')
+
                 if len(data['password']) < 8:
                     raise Exception('password minimal 8 karakter')
                 
