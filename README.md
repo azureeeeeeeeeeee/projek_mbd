@@ -3,9 +3,9 @@
 REST API berbasis Flask untuk manajemen sewa kendaraan.
 
 ```
-Nama : ***Rionando Soeksin Putra***
-NIM : ***11221063***
-Kelas : ***Manajemen Basis Data A***
+Nama : Rionando Soeksin Putra
+NIM : 11221063
+Kelas : Manajemen Basis Data A
 ```
 
 #### History
