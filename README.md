@@ -2,7 +2,7 @@
 
 REST API berbasis Flask untuk manajemen sewa kendaraan.
 
-#### History
+### History
 
 History User, { email: email (optional) }
 
@@ -16,12 +16,17 @@ History Kendaraan, { plat_nomor: string }
 POST /history/kendaraan/
 ```
 
-#### User dan Auth
+### User dan Auth
 
 Login, { name: email, password: string }
 
 ```
 POST /auth/login/
+```
+
+Logout,
+```
+POST /auth/logout/
 ```
 
 Registrasi User, { fullname: string, email: email, password: string }
@@ -48,7 +53,7 @@ Fetch semua user,
 GET /users/
 ```
 
-#### Kendaraan
+### Kendaraan
 
 Tambah Kendaraan, { plat_nomor: string, harga_per_hari: int, tipe: string }
 
@@ -74,7 +79,7 @@ Fetch semua kendaraan,
 GET /kendaraan/
 ```
 
-#### Sewa
+### Sewa
 
 Sewa Kendaraan, { plat_nomor: string, tanggal_mulai: date, tanggal_selesai: date }
 
@@ -100,7 +105,7 @@ Kembalikan kendaraan, { plat_nomor: string, tanggal_kembali: date, rusak: boolea
 GET /kembali/
 ```
 
-#### Tipe Kendaraan
+### Tipe Kendaraan
 
 Fetch semua tipe kendaraan,
 
